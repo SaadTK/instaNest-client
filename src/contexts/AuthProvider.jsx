@@ -1,4 +1,4 @@
-// src/context/AuthProvider.jsx
+// src/contexts/AuthProvider.jsx
 import { createContext, useEffect, useState } from "react";
 import {
   getAuth,

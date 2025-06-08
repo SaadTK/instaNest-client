@@ -1,21 +1,21 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const RoomCard = ({ room }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="border rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-      <img src={room.image} alt={room.name} className="w-full h-48 object-cover" />
-      <div className="p-4">
-        <h3 className="text-lg font-semibold">{room.name}</h3>
-        <p className="text-sm text-gray-600">{room.description.slice(0, 60)}...</p>
-        <div className="flex justify-between items-center mt-2">
-          <span className="text-primary font-bold">${room.price}/night</span>
-          <Link
-            to={`/rooms/${room._id}`}
-            className="text-blue-500 hover:underline"
-          >
-            Book Now
-          </Link>
-        </div>
+    <div
+      onClick={() => navigate(`/rooms/${room._id}`)}
+      className="card bg-base-100 shadow-xl hover:shadow-2xl cursor-pointer transition duration-300"
+    >
+      <figure>
+        <img src={room.image} alt={room.name} className="h-60 w-full object-cover" />
+      </figure>
+      <div className="card-body">
+        <h2 className="card-title">{room.name}</h2>
+        <p>{room.description?.slice(0, 80)}...</p>
+        <p className="text-lg font-bold">${room.price} / night</p>
       </div>
     </div>
   );

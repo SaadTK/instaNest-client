@@ -6,25 +6,41 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
 
   return (
-    <nav className="bg-white shadow p-4 flex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold text-blue-600">InstaNest</Link>
-      <div className="space-x-4">
-        <Link to="/">Home</Link>
-        <Link to="/rooms">Rooms</Link>
-        {user && <Link to="/my-bookings">My Bookings</Link>}
+    <div className="navbar bg-base-100 shadow-md px-4">
+      <div className="flex-1">
+        <Link to="/" className="text-2xl font-bold">
+          InstaNest
+        </Link>
+      </div>
+      <div className="flex-none gap-3">
+        <ul className="menu menu-horizontal px-1 hidden md:flex">
+          <li>
+            <Link to="/rooms">Rooms</Link>
+          </li>
+          {user && (
+            <li>
+              <Link to="/bookings">My Bookings</Link>
+            </li>
+          )}
+        </ul>
         {user ? (
           <>
-            <span className="text-gray-600">{user.email}</span>
-            <button onClick={logout} className="text-red-600">Logout</button>
+            <div className="avatar">
+              <div className="w-8 rounded-full">
+                <img src={user?.photoURL} alt="user" />
+              </div>
+            </div>
+            <button className="btn btn-sm btn-outline" onClick={logout}>
+              Logout
+            </button>
           </>
         ) : (
-          <>
-            <Link to="/login" className="text-blue-600">Login</Link>
-            <Link to="/register">Register</Link>
-          </>
+          <Link to="/login" className="btn btn-sm btn-primary text-white">
+            Login
+          </Link>
         )}
       </div>
-    </nav>
+    </div>
   );
 };
 
