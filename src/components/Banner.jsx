@@ -5,7 +5,8 @@ const Banner = () => {
     <div
       className="hero min-h-[70vh] bg-cover bg-center"
       style={{
-        backgroundImage: "url('https://i.ibb.co/nQ8pt94/banner-hotel.jpg')",
+        backgroundImage:
+          "url('https://cdn-ijnhp.nitrocdn.com/pywIAllcUPgoWDXtkiXtBgvTOSromKIg/assets/images/optimized/rev-5794eaa/www.jaypeehotels.com/blog/wp-content/uploads/2024/09/Blog-6-scaled.jpg')",
       }}
     >
       <div className="hero-overlay bg-black bg-opacity-50"></div>

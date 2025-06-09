@@ -4,7 +4,9 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "./contexts/AuthProvider";
-import router from "./routes/Routes"; // ✅ MUST be the router object, NOT a component
+import router from "./routes/Routes";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 import "./index.css";
 
