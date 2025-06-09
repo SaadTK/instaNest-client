@@ -1,20 +1,25 @@
 @import "tailwindcss";
 @plugin "daisyui";
-/* body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #F5F1EA;
-  color: #3E2F1C; 
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f5f1ea;
+  color: #3e2f1c;
   margin: 0;
   padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Montserrat', sans-serif;
-  color: #B8860B; 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+  color: #b8860b;
 }
 
 a {
-  color: #B8860B;
+  color: #b8860b;
   text-decoration: none;
 }
 
@@ -23,11 +28,11 @@ a:hover {
 }
 
 button.btn-primary {
-  background-color: #B8860B;
+  background-color: #b8860b;
   color: white;
   transition: background-color 0.3s ease;
 }
 
 button.btn-primary:hover {
-  background-color: #8B4513;
-} */
+  background-color: #8b4513;
+}
