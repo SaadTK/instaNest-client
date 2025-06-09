@@ -53,17 +53,14 @@ const Home = () => {
           </div>
         </section>
 
-        {isLoggedIn ? (
-          rooms.length > 0 ? (
-            <Testimonials roomId={rooms[0]._id} />
-          ) : (
-            <p className="text-center">No rooms available to show reviews.</p>
-          )
+        {/* {isLoggedIn ? (
+          <Testimonials />
         ) : (
           <p className="text-center text-red-500">
             Please log in to see guest reviews.
           </p>
-        )}
+        )} */}
+        <Testimonials></Testimonials>
 
         <MapLocation />
         {showOffer && (
