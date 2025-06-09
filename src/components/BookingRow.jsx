@@ -1,36 +1,37 @@
 import { format } from "date-fns";
+import { FaTrash, FaEdit, FaStar } from "react-icons/fa";
 
 const BookingRow = ({ booking, onCancel, onUpdate, onReview }) => {
   return (
-    <tr className="text-sm border-b">
-      <td>
+    <tr className="text-sm border-b hover:bg-gray-100 transition">
+      <td className="p-4">
         <img
           src={booking.image}
           alt="room"
-          className="w-16 h-10 object-cover rounded"
+          className="w-20 h-14 object-cover rounded-lg shadow-md"
         />
       </td>
-      <td>{booking.name}</td>
-      <td>${booking.price}</td>
-      <td>{format(new Date(booking.date), "PP")}</td>
-      <td className="space-x-1">
+      <td className="font-semibold text-gray-800">{booking.name}</td>
+      <td className="text-lg font-bold text-primary">${booking.price}</td>
+      <td className="text-gray-600">{format(new Date(booking.date), "PP")}</td>
+      <td className="space-x-2 flex items-center">
         <button
           onClick={() => onCancel(booking)}
-          className="text-red-600 hover:underline"
+          className="text-red-600 hover:text-red-800 transition flex items-center gap-1"
         >
-          Cancel
+          <FaTrash /> Cancel
         </button>
         <button
           onClick={() => onUpdate(booking)}
-          className="text-blue-600 hover:underline"
+          className="text-blue-600 hover:text-blue-800 transition flex items-center gap-1"
         >
-          Update Date
+          <FaEdit /> Update Date
         </button>
         <button
           onClick={() => onReview(booking)}
-          className="text-green-600 hover:underline"
+          className="text-green-600 hover:text-green-800 transition flex items-center gap-1"
         >
-          Review
+          <FaStar /> Review
         </button>
       </td>
     </tr>

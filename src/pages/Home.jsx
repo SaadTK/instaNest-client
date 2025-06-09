@@ -6,6 +6,7 @@ import Testimonials from "../components/Testimonials";
 import MapLocation from "../components/MapLocation";
 import SpecialOfferModal from "../components/SpecialOfferModal";
 import axios from "axios";
+import PageHead from "../components/PageHead";
 
 const Home = () => {
   const [rooms, setRooms] = useState([]);
@@ -37,35 +38,41 @@ const Home = () => {
 
   return (
     <>
-      <Helmet>
-        <title>InstaNest | Home</title>
-        <meta name="description" content="Book cozy rooms & enjoy your stay." />
-      </Helmet>
+      <PageHead
+        title="InstaNest | Home"
+        description="Book cozy rooms & enjoy your stay."
+      />
 
       <div className="space-y-12 pb-12">
         <Banner />
-        <section className="px-4 max-w-6xl mx-auto space-y-4">
-          <h2 className="text-3xl font-semibold text-center">Featured Rooms</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        {/* Featured Rooms Section */}
+        <section className="px-6 max-w-7xl mx-auto space-y-6">
+          <h2 className="text-4xl font-bold text-center text-gray-800">
+            🌟 Featured Rooms
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {rooms.map((room) => (
               <RoomCard key={room._id} room={room} />
             ))}
           </div>
         </section>
 
-        {/* {isLoggedIn ? (
+        {/* Testimonials Section */}
+        <section className="bg-gray-100 py-12 rounded-lg shadow-md">
+          <h2 className="text-4xl font-bold text-center text-gray-800 mb-6">
+            💬 What Our Guests Say
+          </h2>
           <Testimonials />
-        ) : (
-          <p className="text-center text-red-500">
-            Please log in to see guest reviews.
-          </p>
-        )} */}
-        <Testimonials></Testimonials>
+        </section>
 
+        {/* Map Location */}
         <MapLocation />
+
+        {/* Special Offer Modal */}
         {showOffer && (
           <SpecialOfferModal
-            offer="Get 20% off all summer bookings!"
+            offer="🔥 Get 20% off all summer bookings!"
             onClose={() => setShowOffer(false)}
           />
         )}

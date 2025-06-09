@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { Helmet } from "react-helmet";
 // import ReviewModal from "./ReviewModal";
 import ReviewModal from "../components/ReviewModal";
+import PageHead from "../components/PageHead";
 
 const MyBookings = () => {
   const { user } = useContext(AuthContext);
@@ -60,9 +61,10 @@ const MyBookings = () => {
 
   return (
     <>
-      <Helmet>
-        <title>My Bookings | InstaNest</title>
-      </Helmet>
+      <PageHead
+        title="My Bookings"
+        description="Book cozy rooms & enjoy your stay."
+      />
 
       <div className="max-w-6xl mx-auto px-6 py-12">
         <h1 className="text-4xl font-extrabold mb-8 text-center text-primary">

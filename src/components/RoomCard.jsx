@@ -6,37 +6,42 @@ const RoomCard = ({ room }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = room.images || [];
 
-  // Auto-change image every 3 seconds
+  // Auto-change image every 3 seconds with fade effect
   useEffect(() => {
     if (images.length === 0) return;
 
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }, 1000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [images]);
 
   return (
     <div
-      className="card cursor-pointer border border-gray-300 shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300 rounded overflow-hidden"
+      className="card cursor-pointer border border-gray-300 shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 rounded-lg overflow-hidden bg-white"
       onClick={() => navigate(`/rooms/${room._id}`)}
     >
       {images.length > 0 ? (
-        <img
-          src={images[currentImageIndex]}
-          alt={room.name}
-          className="w-full h-48 object-cover"
-        />
+        <div className="relative w-full h-56">
+          <img
+            src={images[currentImageIndex]}
+            alt={room.name}
+            className="w-full h-full object-cover rounded-t-lg transition-opacity duration-700"
+          />
+          <div className="absolute inset-0 bg-black/30 rounded-t-lg"></div>
+        </div>
       ) : (
-        <div className="w-full h-48 bg-gray-300 flex items-center justify-center">
+        <div className="w-full h-56 bg-gray-300 flex items-center justify-center rounded-t-lg">
           No image
         </div>
       )}
 
-      <div className="p-4">
-        <h3 className="text-lg font-semibold">{room.name}</h3>
-        <p className="text-gray-700 font-bold">${room.price} / night</p>
+      <div className="p-6 text-center">
+        <h3 className="text-2xl font-bold text-gray-800">{room.name}</h3>
+        <p className="text-lg font-semibold text-primary mt-2">
+          ${room.price} / night
+        </p>
       </div>
     </div>
   );

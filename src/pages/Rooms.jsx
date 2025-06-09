@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import RoomCard from "../components/RoomCard";
+import PageHead from "../components/PageHead";
 
 const LoadingCard = () => (
-  <div className="card bg-base-100 shadow-xl animate-pulse cursor-wait h-72">
-    <div className="h-60 bg-gray-300"></div>
-    <div className="card-body">
+  <div className="card bg-white/90 backdrop-blur-lg shadow-lg animate-pulse cursor-wait h-72 rounded-lg">
+    <div className="h-60 bg-gray-300 rounded-t-lg"></div>
+    <div className="card-body p-4">
       <div className="h-6 bg-gray-300 rounded w-3/4 mb-2"></div>
       <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
       <div className="h-6 bg-gray-300 rounded w-1/2"></div>
@@ -47,25 +48,24 @@ const Rooms = () => {
     }
   };
 
-  // Fetch rooms on mount (initial load)
   useEffect(() => {
     fetchRooms();
   }, []);
 
-  // Optionally: You can uncomment this to auto-fetch when filters change
-  // React.useEffect(() => {
-  //   fetchRooms();
-  // }, [filter]);
-
   return (
     <>
-      <Helmet>
-        <title>InstaNest | Rooms</title>
-      </Helmet>
-      <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
-        <h2 className="text-3xl font-semibold">Available Rooms</h2>
+      <PageHead
+        title="All Rooms"
+        description="Book cozy rooms & enjoy your stay."
+      />
 
-        <div className="flex flex-wrap gap-4 items-end mb-6">
+      <div className="max-w-7xl mx-auto px-6 py-12 space-y-8">
+        <h2 className="text-4xl font-bold text-center text-gray-800">
+          🏨 Available Rooms
+        </h2>
+
+        {/* Filter Section */}
+        {/* <div className="flex flex-wrap gap-4 items-end justify-center mb-6">
           <input
             type="number"
             placeholder="Min Price"
@@ -87,22 +87,30 @@ const Rooms = () => {
             value={filter.capacity}
             onChange={(e) => setFilter({ ...filter, capacity: e.target.value })}
           />
-          <button className="btn btn-primary" onClick={fetchRooms}>
+          <button
+            className="btn btn-primary px-6 py-2 rounded-lg font-semibold transition transform hover:scale-105"
+            onClick={fetchRooms}
+          >
             Filter
           </button>
-        </div>
+        </div> */}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Rooms Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading ? (
             Array(6)
               .fill(0)
               .map((_, idx) => <LoadingCard key={idx} />)
           ) : error ? (
-            <p className="col-span-full text-center text-red-600">{error}</p>
+            <p className="col-span-full text-center text-red-600 text-lg font-semibold">
+              {error}
+            </p>
           ) : Array.isArray(rooms) && rooms.length > 0 ? (
             rooms.map((room) => <RoomCard key={room._id} room={room} />)
           ) : (
-            <p className="col-span-full text-center">No rooms found.</p>
+            <p className="col-span-full text-center text-lg font-semibold text-gray-600">
+              No rooms found. Try adjusting your filters!
+            </p>
           )}
         </div>
       </div>
