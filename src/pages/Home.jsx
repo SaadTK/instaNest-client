@@ -23,7 +23,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/rooms")
+      .get("http://localhost:5005/api/rooms")
       .then((res) => {
         const data = res.data;
         if (Array.isArray(data)) {
