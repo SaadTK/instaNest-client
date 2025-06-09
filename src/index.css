@@ -1,9 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #f5f1ea;
-  color: #3e2f1c;
+  background-color: #fdfdfd; /* clean light background */
+  color: #1a1a1a; /* dark readable text */
   margin: 0;
   padding: 0;
 }
@@ -15,11 +16,11 @@ h4,
 h5,
 h6 {
   font-family: "Montserrat", sans-serif;
-  color: #b8860b;
+  color: #e67300; /* warm orange for headings */
 }
 
 a {
-  color: #b8860b;
+  color: #e67300;
   text-decoration: none;
 }
 
@@ -27,12 +28,26 @@ a:hover {
   text-decoration: underline;
 }
 
+/* ✅ Brighter button background + readable white text */
 button.btn-primary {
-  background-color: #b8860b;
-  color: white;
+  background-color: #ff9900; /* bright orange */
+  color: white; /* clearly visible text */
   transition: background-color 0.3s ease;
 }
 
 button.btn-primary:hover {
-  background-color: #8b4513;
+  background-color: #cc7a00; /* darker shade on hover */
+}
+
+/* ✅ Input fields: visible text while typing */
+input.input,
+textarea.input {
+  background-color: white;
+  color: #1a1a1a;
+  border: 1px solid #ccc;
+}
+
+input.input::placeholder,
+textarea.input::placeholder {
+  color: #999;
 }
