@@ -17,7 +17,7 @@ const Footer = () => {
           <a href="/rooms" className="link link-hover">
             Rooms
           </a>
-          <a href="/my-bookings" className="link link-hover">
+          <a href="/bookings" className="link link-hover">
             My Bookings
           </a>
         </div>
