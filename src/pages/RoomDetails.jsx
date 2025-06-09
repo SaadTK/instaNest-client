@@ -1,85 +1,18 @@
-// import React, { useContext, useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import axios from "axios";
-// import BookNowModal from "../components/BookNowModal";
-// import ReviewList from "../components/ReviewList";
-// import { AuthContext } from "../contexts/AuthProvider";
-// import { format } from "date-fns";
-// import { toast } from "react-hot-toast";
-// import { Helmet } from "react-helmet";
-
-// const RoomDetails = () => {
-//   const { id } = useParams();
-//   const { user } = useContext(AuthContext);
-//   const [room, setRoom] = useState(null);
-//   const [reviews, setReviews] = useState([]);
-//   const [bookingMode, setBookingMode] = useState(false);
-
-//   useEffect(() => {
-//     axios.get(`/api/rooms/${id}`).then((res) => setRoom(res.data));
-//     axios.get(`/api/rooms/${id}/reviews`).then((res) => setReviews(res.data));
-//   }, [id]);
-
-//   const handleBook = async () => {
-//     if (!user) return toast.error("Login required");
-//     const resp = await axios.post("/api/bookings", {
-//       room: id,
-//       checkIn: new Date(),
-//       checkOut: new Date(),
-//       guests: 1,
-//       totalPrice: room.price,
-//     });
-//     toast.success("Booked!");
-//     setBookingMode(false);
-//   };
-
-//   if (!room) return <p>Loading...RoomDetails</p>;
-
-//   return (
-//     <>
-//       <Helmet>
-//         <title>{room.name} | InstaNest</title>
-//       </Helmet>
-//       <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
-//         <img
-//           src={room.image}
-//           alt={room.name}
-//           className="w-full h-80 rounded-lg object-cover"
-//         />
-//         <h2 className="text-3xl font-semibold">{room.name}</h2>
-//         <p className="text-lg">{room.description}</p>
-//         <p className="text-xl font-bold">${room.price}/night</p>
-//         <button
-//           className="btn btn-primary"
-//           onClick={() => setBookingMode(true)}
-//         >
-//           Book Now
-//         </button>
-//         <section className="mt-10">
-//           <h3 className="text-2xl font-semibold mb-4">Reviews</h3>
-//           <ReviewList reviews={reviews} />
-//         </section>
-//         {bookingMode && (
-//           <BookNowModal
-//             room={room}
-//             onConfirm={handleBook}
-//             onClose={() => setBookingMode(false)}
-//           />
-//         )}
-//       </div>
-//     </>
-//   );
-// };
-
-// export default RoomDetails;
-// RoomDetails.jsx - fetches a single room by ID and shows full details
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+// Import Swiper modules
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Thumbs, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+
 const RoomDetails = () => {
   const { id } = useParams();
   const [room, setRoom] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   useEffect(() => {
     axios
@@ -88,15 +21,91 @@ const RoomDetails = () => {
       .catch((err) => console.error("Failed to fetch room:", err));
   }, [id]);
 
-  if (!room) return <p>Loading room details...</p>;
+  if (!room)
+    return <div className="text-center mt-10">Loading room details...</div>;
 
   return (
-    <div>
-      <h2>{room.name}</h2>
-      <img src={room.image} alt={room.name} />
-      <p>{room.description}</p>
-      <p>${room.price} / night</p>
-      <p>Capacity: {room.capacity}</p>
+    <div className="max-w-5xl mx-auto px-4 md:px-8 py-6">
+      <h1 className="text-3xl font-bold mb-6 text-center">{room.name}</h1>
+
+      {/* Image Gallery */}
+      <div className="mb-6">
+        <Swiper
+          style={{ "--swiper-navigation-color": "#fff" }}
+          modules={[Navigation, Thumbs, Autoplay]}
+          navigation
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          loop
+          thumbs={{ swiper: thumbsSwiper }}
+          className="rounded-lg overflow-hidden"
+        >
+          {room.images?.map((img, idx) => (
+            <SwiperSlide key={idx}>
+              <img
+                src={img}
+                alt={`Room image ${idx + 1}`}
+                className="w-full h-[400px] object-cover"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/* Thumbnail Images */}
+        <Swiper
+          onSwiper={setThumbsSwiper}
+          modules={[Thumbs]}
+          slidesPerView={Math.min(room.images.length, 5)}
+          watchSlidesProgress
+          className="mt-4"
+          spaceBetween={10}
+        >
+          {room.images?.map((img, idx) => (
+            <SwiperSlide key={idx}>
+              <img
+                src={img}
+                alt={`Thumbnail ${idx + 1}`}
+                className="h-20 w-full object-cover rounded-md border cursor-pointer"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      {/* Room Info */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <div>
+          <p className="text-gray-700 mb-4">{room.description}</p>
+          <p className="text-lg font-semibold text-primary">
+            ${room.price} / night
+          </p>
+          <p className="text-sm text-gray-600">Capacity: {room.capacity}</p>
+          <p className="text-sm text-gray-600">Location: {room.location}</p>
+          <div className="mt-2">
+            <span className="badge badge-info text-white p-3">
+              ⭐ {room.rating}
+            </span>
+          </div>
+
+          {room.amenities?.length > 0 && (
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold mb-2">Amenities:</h3>
+              <ul className="list-disc list-inside text-gray-700">
+                {room.amenities.map((a, i) => (
+                  <li key={i}>{a}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <div className="p-4 border rounded shadow">
+          <h3 className="text-xl font-bold mb-2">Ready to Book?</h3>
+          <p className="mb-4">
+            Book now to reserve your stay at this location.
+          </p>
+          <button className="btn btn-primary w-full">Book Now</button>
+        </div>
+      </div>
     </div>
   );
 };
