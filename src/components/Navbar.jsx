@@ -25,11 +25,6 @@ const Navbar = () => {
         </ul>
         {user ? (
           <>
-            <div className="avatar">
-              <div className="w-8 rounded-full">
-                <img src={user?.photoURL} alt="user" />
-              </div>
-            </div>
             <button className="btn btn-sm btn-outline" onClick={logout}>
               Logout
             </button>

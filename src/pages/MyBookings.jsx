@@ -4,11 +4,17 @@ import { AuthContext } from "../contexts/AuthProvider";
 import { format } from "date-fns";
 import { toast } from "react-hot-toast";
 import { Helmet } from "react-helmet";
+// import ReviewModal from "./ReviewModal";
+import ReviewModal from "../components/ReviewModal";
 
 const MyBookings = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Modal state
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
   useEffect(() => {
     axios
@@ -40,6 +46,16 @@ const MyBookings = () => {
     } catch {
       toast.error("Failed to cancel booking");
     }
+  };
+
+  const openReviewModal = (room) => {
+    setSelectedRoom(room);
+    setReviewModalOpen(true);
+  };
+
+  const closeReviewModal = () => {
+    setReviewModalOpen(false);
+    setSelectedRoom(null);
   };
 
   return (
@@ -93,6 +109,7 @@ const MyBookings = () => {
                         alt={b.room.name}
                         className="w-20 h-14 rounded object-cover"
                       />
+                      <div className="mt-1 font-semibold">{b.room.name}</div>
                     </td>
 
                     <td className="px-6 py-4 text-gray-700">
@@ -104,19 +121,40 @@ const MyBookings = () => {
                     <td className="text-right px-6 py-4 font-semibold text-primary">
                       ${b.totalPrice.toFixed(2)}
                     </td>
-                    <td className="text-center px-6 py-4">
+                    <td className="text-center px-6 py-4 space-x-2">
                       <button
                         onClick={() => cancelBooking(b._id, b.checkIn)}
                         className="btn btn-sm btn-error hover:btn-error/90 transition"
                       >
                         Cancel
                       </button>
+
+                      {/* Show review button only if user is logged in */}
+                      {user && (
+                        <button
+                          onClick={() => openReviewModal(b.room)}
+                          className="btn btn-sm btn-primary hover:bg-primary/90 transition"
+                        >
+                          Review
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+        )}
+
+        {/* Review Modal */}
+        {selectedRoom && (
+          <ReviewModal
+            roomId={selectedRoom._id}
+            user={user}
+            room={selectedRoom}
+            isOpen={reviewModalOpen}
+            onClose={closeReviewModal}
+          />
         )}
       </div>
     </>
