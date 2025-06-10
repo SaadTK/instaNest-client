@@ -19,7 +19,9 @@ const MyBookings = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/api/bookings", { withCredentials: true })
+      .get("https://instanest-server.onrender.com/api/bookings", {
+        withCredentials: true,
+      })
       .then((res) => {
         setBookings(res.data);
         setLoading(false);
@@ -39,9 +41,12 @@ const MyBookings = () => {
     if (now > allowed) return toast.error("Cancellation period passed");
 
     try {
-      await axios.delete(`http://localhost:5005/api/bookings/${id}`, {
-        withCredentials: true,
-      });
+      await axios.delete(
+        `https://instanest-server.onrender.com/api/bookings/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
       toast.success("Booking cancelled");
       setBookings((prev) => prev.filter((b) => b._id !== id));
     } catch {

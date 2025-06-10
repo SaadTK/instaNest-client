@@ -35,7 +35,7 @@ const Rooms = () => {
     if (filter.capacity) params.capacity = filter.capacity;
 
     try {
-      const res = await axios.get("http://localhost:5005/api/rooms", {
+      const res = await axios.get("https://instanest-server.onrender.com/api/rooms", {
         params,
         withCredentials: true,
       });

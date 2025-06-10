@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5005/api",  
+  baseURL: "https://instanest-server.onrender.com/api",  
   withCredentials: true,  
 });
 

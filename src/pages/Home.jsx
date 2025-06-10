@@ -20,7 +20,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/api/rooms")
+      .get("https://instanest-server.onrender.com/api/rooms")
       .then((res) => {
         const data = res.data;
         if (Array.isArray(data)) {
@@ -38,10 +38,8 @@ const Home = () => {
 
   return (
     <>
-      <PageHead
-        title="InstaNest | Home"
-        description="Book cozy rooms & enjoy your stay."
-      />
+    <PageHead title="InstaNest | Home" description="Book cozy rooms & enjoy your stay." />
+
 
       <div className="space-y-12 pb-12">
         <Banner />

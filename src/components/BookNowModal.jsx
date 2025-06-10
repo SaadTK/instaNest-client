@@ -39,7 +39,7 @@ const BookNowModal = ({ room, onClose, onBookingSuccess }) => {
       const totalPrice = calculateTotalPrice();
 
       await axios.post(
-        `http://localhost:5005/api/bookings`,
+        `https://instanest-server.onrender.com/api/bookings`,
         {
           room: room._id,
           checkIn: checkIn.toISOString(),

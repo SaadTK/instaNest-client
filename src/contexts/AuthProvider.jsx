@@ -12,11 +12,14 @@ const AuthProvider = ({ children }) => {
   const register = async (email, password, name) => {
     setLoading(true);
     try {
-      await axios.post("http://localhost:5005/api/auth/register", {
-        email,
-        password,
-        name,
-      });
+      await axios.post(
+        "https://instanest-server.onrender.com/api/auth/register",
+        {
+          email,
+          password,
+          name,
+        }
+      );
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -28,7 +31,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:5005/api/auth/login",
+        "https://instanest-server.onrender.com/api/auth/login",
         { email, password },
         { withCredentials: true }
       );
@@ -45,7 +48,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       await axios.post(
-        "http://localhost:5005/api/auth/logout",
+        "https://instanest-server.onrender.com/api/auth/logout",
         {},
         { withCredentials: true }
       );
@@ -58,21 +61,24 @@ const AuthProvider = ({ children }) => {
   };
 
   // Check if user is already logged in on mount
-  useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const res = await axios.get("http://localhost:5005/api/auth/profile", {
-          withCredentials: true,
-        });
-        setUser(res.data.user);
-      } catch {
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    checkUser();
-  }, []);
+  // useEffect(() => {
+  //   const checkUser = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         "https://instanest-server.onrender.com/api/auth/profile",
+  //         {
+  //           withCredentials: true,
+  //         }
+  //       );
+  //       setUser(res.data.user);
+  //     } catch {
+  //       setUser(null);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   checkUser();
+  // }, []);
 
   return (
     <AuthContext.Provider value={{ user, loading, register, login, logout }}>

@@ -9,7 +9,8 @@ const Testimonials = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/api/reviews") // Ensure this endpoint returns all reviews
+      
+      .get("https://instanest-server.onrender.com/api/reviews") // Ensure this endpoint returns all reviews
       .then((res) => {
         setReviews(res.data);
         setLoading(false);

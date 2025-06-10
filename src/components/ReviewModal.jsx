@@ -18,7 +18,8 @@ const ReviewModal = ({ user, room, isOpen, onClose, roomId }) => {
 
     try {
       await axios.post(
-        `http://localhost:5005/api/reviews/${roomId}`,
+        
+        `https://instanest-server.onrender.com/api/reviews/${roomId}`,
         { rating, comment },
         { withCredentials: true }
       );
