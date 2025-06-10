@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 
 export const AuthContext = createContext(null);
@@ -61,41 +61,24 @@ const AuthProvider = ({ children }) => {
   };
 
   // Check if user is already logged in on mount
+
   // useEffect(() => {
-  //   const checkUser = async () => {
+  //   const fetchProfile = async () => {
   //     try {
   //       const res = await axios.get(
-  //         "https://instanest-server.onrender.com/api/auth/profile",
-  //         {
-  //           withCredentials: true,
-  //         }
+  //         "https://instanest-server.onrender.com/api/auth/profile"
   //       );
   //       setUser(res.data.user);
-  //     } catch {
+  //     } catch (err) {
   //       setUser(null);
+  //       console.error("Profile fetch failed:", err.response?.data || err);
   //     } finally {
   //       setLoading(false);
   //     }
   //   };
-  //   checkUser();
-  // }, []);
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await axios.get(
-          "https://instanest-server.onrender.com/api/auth/profile"
-        );
-        setUser(res.data.user);
-      } catch (err) {
-        setUser(null);
-        console.error("Profile fetch failed:", err.response?.data || err);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchProfile();
-  }, []);
+  //   fetchProfile();
+  // }, []);
 
   return (
     <AuthContext.Provider value={{ user, loading, register, login, logout }}>
