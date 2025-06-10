@@ -61,23 +61,40 @@ const AuthProvider = ({ children }) => {
   };
 
   // Check if user is already logged in on mount
+  // useEffect(() => {
+  //   const checkUser = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         "https://instanest-server.onrender.com/api/auth/profile",
+  //         {
+  //           withCredentials: true,
+  //         }
+  //       );
+  //       setUser(res.data.user);
+  //     } catch {
+  //       setUser(null);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   checkUser();
+  // }, []);
   useEffect(() => {
-    const checkUser = async () => {
+    const fetchProfile = async () => {
       try {
         const res = await axios.get(
-          "https://instanest-server.onrender.com/api/auth/profile",
-          {
-            withCredentials: true,
-          }
+          "https://instanest-server.onrender.com/api/auth/profile"
         );
         setUser(res.data.user);
-      } catch {
+      } catch (err) {
         setUser(null);
+        console.error("Profile fetch failed:", err.response?.data || err);
       } finally {
         setLoading(false);
       }
     };
-    checkUser();
+
+    fetchProfile();
   }, []);
 
   return (
