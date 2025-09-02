@@ -126,9 +126,3 @@ Tahmid Karim Saad
 
 📧 Email: tahmid.karim.saad@gmail.com
 
-
----
-
-✅ This is 100% **copy-paste ready** for GitHub README.  
-
-Do you also want me to add a **preview screenshot section** (with placeholders) so you can just upload some screenshots of your project later?
