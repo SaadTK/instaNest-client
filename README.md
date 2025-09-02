@@ -100,21 +100,6 @@ cd client
 npm install
 npm run dev
 
-✅ Assignment Requirements Covered
-
- User Authentication (JWT + Google login)
-
- Rooms CRUD + Filtering
-
- Booking system with availability check
-
- Reviews with ratings & sorted display
-
- Protected routes (only logged in users can book/review)
-
- Responsive UI with DaisyUI
-
- Secure deployment with Railway + Netlify
 
 👨‍💻 Author
 
